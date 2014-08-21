@@ -1,4 +1,6 @@
-# Capistrano3 Unicorn
+# Capistrano3 Rainbows
+
+> Note: This fork makes some minimal changes to make this awesome gem work with Rainbows. License and authors were maintained.
 
 This is a capistrano v3 plugin that integrates Unicorn tasks into capistrano deployment scripts; it was heavily inspired by [sosedoff/capistrano-unicorn](https://github.com/sosedoff/capistrano-unicorn) but written from scratch to use the capistrano 3 syntax.
 

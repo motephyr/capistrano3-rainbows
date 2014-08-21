@@ -1,14 +1,16 @@
 # paths
+# => You can also choose the using Ruby: app_path = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 app_path = "/home/example/www.example.com"
+
 working_directory "#{app_path}/current"
-pid               "#{app_path}/current/tmp/pids/unicorn.pid"
+pid               "#{app_path}/current/tmp/pids/rainbows.pid"
 
 # listen
-listen "/tmp/unicorn-www.example.com.socket", :backlog => 64
+listen "/tmp/rainbows-www.example.com.socket", :backlog => 64
 
 # logging
-stderr_path "log/unicorn.stderr.log"
-stdout_path "log/unicorn.stdout.log"
+stderr_path "log/rainbows.stderr.log"
+stdout_path "log/rainbows.stdout.log"
 
 # workers
 worker_processes 3
