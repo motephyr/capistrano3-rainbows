@@ -2,43 +2,45 @@
 
 > Note: This fork makes some minimal changes to make this awesome gem work with Rainbows. License and authors were maintained.
 
-This is a capistrano v3 plugin that integrates Unicorn tasks into capistrano deployment scripts; it was heavily inspired by [sosedoff/capistrano-unicorn](https://github.com/sosedoff/capistrano-unicorn) but written from scratch to use the capistrano 3 syntax.
+> The README file was altered to match the renamed capistrano tasks.
+
+This is a capistrano v3 plugin that integrates Rainbows tasks into capistrano deployment scripts; it was heavily inspired by [sosedoff/capistrano-unicorn](https://github.com/sosedoff/capistrano-unicorn) but written from scratch to use the capistrano 3 syntax.
 
 ### Gotchas
 
-- The `unicorn:start` task invokes unicorn as `bundle exec unicorn`.
+- The `rainbows:start` task invokes Rainbows as `bundle exec rainbows`.
 
 - When running tasks not during a full deployment, you may need to run the `rvm:hook`:
 
-    `cap production rvm:hook unicorn:start`
+    `cap production rvm:hook rainbows:start`
 
 ### Conventions
 
-You can override the defaults by `set :unicorn_example, value` in the `config/deploy.rb` or `config/deploy/ENVIRONMENT.rb` capistrano deployment files.
+You can override the defaults by `set :rainbows_example, value` in the `config/deploy.rb` or `config/deploy/ENVIRONMENT.rb` capistrano deployment files.
 
 Example Unicorn config [examples/unicorn.rb](https://github.com/tablexi/capistrano3-unicorn/blob/master/examples/unicorn.rb)
 
-- `:unicorn_pid`
+- `:rainbows_pid`
 
-    Default assumes your pid file will be located in `CURRENT_PATH/tmp/pids/unicorn.pid`. The unicorn_pid should be defined with an absolute path.
+    Default assumes your pid file will be located in `CURRENT_PATH/tmp/pids/rainbows.pid`. The rainbows_pid should be defined with an absolute path.
 
-- `:unicorn_config_path`
+- `:rainbows_config_path`
 
-    Default assumes that your Unicorn configuration will be located in `CURRENT_PATH/config/unicorn/RAILS_ENV.rb`
+    Default assumes that your rainbows configuration will be located in `CURRENT_PATH/config/rainbows/RAILS_ENV.rb`
 
-- `:unicorn_roles`
+- `:rainbows_roles`
 
-    Roles to run unicorn commands on. Defaults to :app
+    Roles to run rainbows commands on. Defaults to :app
 
-- `:unicorn_options`
+- `:rainbows_options`
 
-    Set any additional options to be passed to unicorn on startup. Defaults to none
+    Set any additional options to be passed to rainbows on startup. Defaults to none
 
-- `:unicorn_rack_env`
+- `:rainbows_rack_env`
 
-    Set the RACK_ENV. Defaults to deployment unless the RAILS_ENV is development. Valid options are "development", "deployment", or "none". See the [RACK ENVIRONMENT](http://unicorn.bogomips.org/unicorn_1.html) section of the unicorn documentation for more information.
+    Set the RACK_ENV. Defaults to deployment unless the RAILS_ENV is development. Valid options are "development", "deployment", or "none". See the [RACK ENVIRONMENT](http://rainbows.bogomips.org/rainbows_1.html) section of the rainbows documentation for more information.
 
-- `:unicorn_bundle_gemfile`
+- `:rainbows_bundle_gemfile`
 
     ***REMOVED in v0.2.0***
 
@@ -46,7 +48,7 @@ Example Unicorn config [examples/unicorn.rb](https://github.com/tablexi/capistra
 
 - `:unicorn_restart_sleep_time`
 
-    In `unicorn:legacy_restart` send the USR2 signal, sleep for this many seconds (defaults to 3), then send the QUIT signal
+    In `rainbows:legacy_restart` send the USR2 signal, sleep for this many seconds (defaults to 3), then send the QUIT signal
 
 ### Setup
 
@@ -54,7 +56,7 @@ Add the library to your `Gemfile`:
 
 ```ruby
 group :development do
-  gem 'capistrano3-unicorn'
+  gem 'capistrano3-rainbows'
 end
 ```
 
@@ -64,7 +66,7 @@ Add the library to your `Capfile`:
 require 'capistrano3/unicorn'
 ```
 
-Invoke Unicorn from your `config/deploy.rb` or `config/deploy/ENVIRONMENT.rb`:
+Invoke Rainbows from your `config/deploy.rb` or `config/deploy/ENVIRONMENT.rb`:
 
 If `preload_app:true` use:
 
@@ -72,7 +74,7 @@ If `preload_app:true` use:
 after 'deploy:publishing', 'deploy:restart'
 namespace :deploy do
   task :restart do
-    invoke 'unicorn:restart'
+    invoke 'rainbows:restart'
   end
 end
 ```
@@ -83,7 +85,7 @@ If `preload_app:true` and you need capistrano to cleanup your oldbin pid use:
 after 'deploy:publishing', 'deploy:restart'
 namespace :deploy do
   task :restart do
-    invoke 'unicorn:legacy_restart'
+    invoke 'rainbows:legacy_restart'
   end
 end
 ```
@@ -94,7 +96,7 @@ Otherwise use:
 after 'deploy:publishing', 'deploy:restart'
 namespace :deploy do
   task :restart do
-    invoke 'unicorn:reload'
+    invoke 'rainbows:reload'
   end
 end
 ```
