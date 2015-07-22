@@ -4,7 +4,7 @@ namespace :load do
     set :rainbows_config_path, -> { File.join(current_path, "config", "rainbows", "#{fetch(:rails_env)}.rb") }
     set :rainbows_roles, -> { :app }
     set :rainbows_options, -> { "" }
-    set :rainbows_rack_env, -> { fetch(:rails_env) == "development" ? "development" : "deployment" }
+    set :rainbows_rack_env, -> { fetch(:rails_env) == "development" ? "development" : "production" }
     set :rainbows_restart_sleep_time, 3
   end
 end
